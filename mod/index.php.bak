@@ -1,0 +1,200 @@
+<?
+ob_start();
+session_start();
+include('../conf/connect.php');
+include('../Site-status.php');
+if($_SESSION['id_member']=="" || $_SESSION['username']==""){
+header('location:../.');
+}
+header("Cache-Control: no-store, no-cache, must-revalidate"); 
+header("Cache-Control: post-check=0, pre-check=0", false);
+include('Auto-Delete.php');
+$ck=mysql_num_rows(mysql_query("select id_member from member where id_member='".$_SESSION['id_member']."'"));
+if($ck==0){
+session_destroy();
+header('location:../.');
+}
+include('../conf/title-web.php');
+?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>จัดการระบบทั่วไป Zonemember Shop Setting</title>
+<meta name="description" content="" />
+<meta name="keywords" content="" />
+<link href="../conf/template.css" rel="stylesheet" type="text/css" />
+<link href="../conf/link.css" rel="stylesheet" type="text/css" />
+<link href="../conf/textcss.css" rel="stylesheet" type="text/css" />
+<!--<script type="text/javascript" src="../conf/java-noclick.js"></script> -->
+
+<script type="text/javascript" src="../conf/prototype.js"></script>
+<script type="text/javascript" src="../conf/jquery.js"></script>
+<link href="../conf/stylelink.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+<div id="box-start">
+<!-- Top -->
+<div id="box-top">
+<div id="box-top-Left" class="link13">
+<?
+include('menu-top.php');
+?>
+</div>
+
+<div id="box-top-Right" class="link13">
+<?
+//include('box-login.php');
+?>
+</div>
+</div>
+<!-- Top -->
+
+
+<!-- แบนเนอร์ Top -->
+<div id="box-bannertop">
+<?
+include('top.php');
+?>
+</div>
+<!-- จบแบนเนอร์ Top -->
+
+<!-- แสดงข้อมูล -->
+<div id="box-content1"></div>
+<div id="box-content2">
+
+<div id="box-content">
+<div style="margin:0px 0px 0px 0px;">
+  <table width="980" border="0" cellpadding="0" cellspacing="0">
+    <tr>
+      <td width="210" align="left" valign="top">
+	  <?
+	  include('menu-left.php');
+	  ?></td>
+      <td align="center" valign="top">
+	  <div style="width:760px; margin:0px auto;">
+	  <?
+	  //=========== ข้อมูลสมาชิก ===========
+	  if($_REQUEST[Edit]=="member"){
+	  include('edit-member.php');
+	  }elseif($_REQUEST[Repass]=="Newpass"){
+	  include('Repassword.php');
+	  }
+	  //เช็คผู้ติดต่อ
+	  elseif($_REQUEST[CheckC]=="Contact"){
+	  include('contact.php');
+	  }
+	  //pm
+	  elseif($_REQUEST[ShowPM]=="PM"){
+	  include('Show-Pm.php');
+	  }elseif($_REQUEST[ShowPM2]=="PM2"){
+	  include('Show-Pm.php');
+	  }
+	  //บทความ
+	  elseif($_REQUEST[AddArticle]=="Article"){
+	  include('add-article.php');
+	  }
+	  //==============ข้อมูลสมาชิก ==========
+	  
+	  //============ ประกาศฟรี =============
+	  elseif($_REQUEST[Postads]=="POSTADS"){
+	  include('post.php');
+	  }elseif($_REQUEST[ShowPost]=="post"){
+	  include('show-post.php');
+	  }elseif($_REQUEST[EditPost]=="Post"){
+	  include('show-post.php');
+	  }
+	  //============== ประกาศฟรี ============
+	  
+	  //=========== เปิดร้านค้า ===============
+	  elseif($_REQUEST[RegistShop]=="OpenShop"){
+	  include('open-shop.php');
+	  }elseif($_REQUEST[EditRegistShop]=="OpenShop"){
+	  include('open-shop.php');
+	  }elseif($_REQUEST[Showim]=="Image"){
+	  include('Shop-image.php');
+	  }
+	  //ควบคุมร้านค้า
+	  elseif($_REQUEST[shopOff]=="On"){
+	  include('shop-status.php');
+	  }
+	  //munu
+	  elseif($_REQUEST[MenuMain]=="Menu"){
+	  include('shop-menu.php');
+	  }elseif($_REQUEST[menuMessage]=="Message"){
+	  include('shop-menu-message.php');
+	  }elseif($_REQUEST[menuMessage2]=="Message2"){
+	  include('shop-menu-message2.php');
+	  }elseif($_REQUEST[menuMessage3]=="Message3"){
+	  include('shop-menu-message3.php');
+	  }
+	  //หมวดหมู่สินค้า และสินค้า
+	  elseif($_REQUEST[Addcategory]=="category"){
+	  include('shop-category.php');
+	  }elseif($_REQUEST[Editcate]=="category"){
+	  include('shop-category.php');
+	  }
+	  //สินค้า
+	  elseif($_REQUEST[AddSinka]=="Sinka"){
+	  include('shop-sinka.php');
+	  }elseif($_REQUEST[DooSinka]=="Sinka"){
+	  include('shop-sinka.php');
+	  }elseif($_REQUEST[EditSinka]=="ESinka"){
+	  include('shop-sinka.php');
+	  }
+	  //ข่าว
+	  elseif($_REQUEST[ShowNews]=="News"){
+	  include('shop-news.php');
+	  }elseif($_REQUEST[ShowNew]=="News"){
+	  include('shop-news.php');
+	  }elseif($_REQUEST[EditNews]=="News"){
+	  include('shop-news.php');
+	  }
+	  //คำอธิบายหน้าร้าน
+	  elseif($_REQUEST[Description]=="Shop"){
+	  include('shop-description.php');
+	  }
+	  //สมาชิกประจำร้านค้า
+	  elseif($_REQUEST[ShowMember]=="Shop"){
+	  include('Show-member.php');
+	  }elseif($_REQUEST[ShowOrders]=="Orders"){
+	  include('Show-Orders.php');
+	  }
+	  else{
+	  include('default.php');
+	  }
+	  ?>
+	  </div></td>
+      </tr>
+  </table>
+</div>
+</div>
+
+</div>
+<div id="box-content3"></div>
+<!-- แสดงข้อมูล -->
+
+<!-- footer -->
+<div id="box-content1"></div>
+<div id="box-content2">
+
+<div id="box-content">
+<?
+include('footer.php');
+?>
+</div>
+
+</div>
+<div id="box-content3"></div>
+<!-- footer -->
+</div>
+</body>
+</html>
+<script type="text/javascript" src="../ckeditor/ckeditor.js"></script>
+<script type="text/javascript" src="../ckeditor/cke_config.js"></script>
+<script type="text/javascript">
+var editorObj=CKEDITOR.replace( 'editor1',cke_config); 
+// editor1 ชื่อ id ของ textarea ที่ต้องการใช้งาน ckeditor
+//var editorObj=CKEDITOR.replace( 'editor1',cke_config,dataValue);  // กรณีดึงข้อมูลมาแก้ไข
+</script>

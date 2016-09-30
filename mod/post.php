@@ -1,0 +1,245 @@
+<?
+if($_REQUEST[Postads]=="POSTADS"){
+?>
+<script type="text/javascript">
+//select ajax
+function changeType(val){
+	if(val!=''){
+		var param ='id_category='+val
+		new Ajax.Request('ajax-select-subcategory.php',{
+			method:'post',
+			parameters:param,
+			onSuccess:function(t){
+			var text =t.responseText;
+			//alert(t.responseText)
+				var arr =new Array();
+				//alert(arr.length)
+				arr =text.split('|')
+				//alert(t.responseText+"->"+arr.length);
+				var element =document.getElementById('sel-type')
+				element.innerHTML='';
+				element.options[0]=new Option( ("--กรุณาเลือกหมวดหมู่หลักก่อน--"),(0),true,true);
+				len=0;
+				if(arr.length==1)return;
+				for(i=0;i<arr.length;i++){		
+					element.options[len]=new Option( (arr[i+1]),(arr[i++]),false,false);
+					len++;
+				}
+			}
+		});
+	}
+}
+
+//checkform
+function check(){
+var ff=document.form1;
+var type=/\.(jpg|jpeg|pjpeg|gif)/i
+if(ff.category.value=='0'){
+alert('กรุณาเลือกหมวดบริการ ด้วยค่ะ');
+return false;
+}
+else if(ff.subcategory.value=='0'){
+alert('กรุณาเลือกหมวดบริการย่อย ด้วยค่ะ');
+return false;
+}
+else if(ff.title.value==''){
+alert('กรอกหัวข้อประกาศ ด้วยค่ะ');
+ff.title.focus();
+return false;
+}
+else if(ff.price.value==''){
+alert('กำหนดราคาบริการ ด้วยค่ะ');
+ff.price.focus();
+return false;
+}
+else if(ff.service.value=='0'){
+alert('กรุณาเลือกความต้องการ ด้วยค่ะ');
+return false;
+}
+else if(ff.send.value==''){
+alert('กรุณาเลือกวิธีติดต่อ ด้วยค่ะ');
+return false;
+}
+
+else if((!ff.image.value.match(type) &&  ff.image.value!='')||(!ff.image1.value.match(type) &&  ff.image1.value!='')||(!ff.image2.value.match(type) &&  ff.image2.value!='')||(!ff.image3.value.match(type) &&  ff.image3.value!='')||(!ff.image4.value.match(type) &&  ff.image4.value!='')||(!ff.image5.value.match(type) &&  ff.image5.value!='')||(!ff.image6.value.match(type) &&  ff.image6.value!='')){
+alert('ไม่อนุญาติไฟล์ภาพนี้!!');
+return false;
+}
+else if(ff.keyword1.value==''){
+alert('กรุณากำหนดอยากน้อย 1 Keyword');
+ff.keyword1.focus();
+return false;
+}
+else if(ff.tags1.value==''){
+alert('กรุณากำหนด Tags การค้นหา 1 Tags');
+ff.tags1.focus();
+return false;
+}
+else{
+document.getElementById('Showdata').innerHTML="<img src='../images/icon/loading_blue.gif' width='16' height='16' border='0'>";
+return true;
+}
+}
+
+function SentEr(){
+document.getElementById('Showdata').innerHTML="";
+return true;
+}
+
+function SentOK(){
+document.getElementById('Showdata').innerHTML="";
+window.open("index.php?Postads=POSTADS","_self");
+return true;
+}
+</script>
+<style type="text/css">
+<!--
+.style1 {color: #FF0000}
+.style2 {color: #999999}
+-->
+</style>
+
+<iframe name="Iframs" id="Iframs" src="" class="iframs"></iframe>
+  <form action="save-post.php" method="post" enctype="multipart/form-data" name="form1" target="Iframs" onSubmit="return check();">
+    <table width="740" border="0" cellpadding="4" cellspacing="2" id="box-table">
+      <tr class="text13b">
+        <td height="40" colspan="5" align="center" valign="middle">ลงประกาศ</td>
+      </tr>
+      <tr class="text13b">
+        <td height="30" align="left" valign="middle">หัวข้อประกาศ</td>
+        <td align="left" valign="middle">:</td>
+        <td colspan="3" align="left" valign="middle"><input name="title" type="text" id="title" style="width:500px;" /></td>
+      </tr>
+      <tr class="text13b">
+        <td width="95" height="30" align="left" valign="middle">หมวดบริการ</td>
+        <td width="12" height="30" align="left" valign="middle">:</td>
+        <td width="206" align="left" valign="middle">
+		<select name="category" id="id_category" onChange="changeType(this.value)" style="width:200px;">
+        <?
+		echo"<option value='0'>เลือกหมวดบริการ</option>";
+		$resule=mysql_query("Select * From category Order By id_category ASC");
+		while($row=mysql_fetch_array($resule)){
+		if($id_category==$row['id_category']){
+		echo"<option value=\"$row[id_category]\" selected=\"selected\">".stripslashes($row[category])."</option>";
+		}else{
+		echo"<option value=\"$row[id_category]\">".stripslashes($row[category])."</option>";
+		}
+		}
+		?>
+        </select></td>
+        <td width="68" align="right" valign="middle">หมวดย่อย:</td>
+        <td width="323" align="left" valign="middle"><select id="sel-type" name="subcategory" style="width:200px;">
+          <option value="0">กรุณาเลือกหมวดบริการก่อน</option>
+        </select></td>
+      </tr>
+      
+      <tr class="text13b">
+        <td height="50" colspan="5" align="center" valign="middle"><textarea id="editor1" name="editor1"></textarea></td>
+      </tr>
+      <tr class="text13b">
+        <td height="30" align="left">ราคาสินค้า</td>
+        <td height="30" align="left">:</td>
+        <td colspan="3" align="left" valign="middle"><input name="price" type="text" id="price" style="width:100px;" />
+บาท <span class="comment">ห้ามมี , (comma)</span></td>
+      </tr>
+      <tr class="text13b">
+        <td height="36" align="left">ความต้องการ</td>
+        <td height="36" align="left">:</td>
+        <td colspan="3" align="left"><table width="100%" border="0" cellspacing="0" cellpadding="0" class="linkaddform">
+          <tr>
+            <td width="20%" height="30" valign="middle" ><input name="service" type="radio" value="1" checked="checked" />
+รับจ้าง</td>
+            <td width="17%" valign="middle" ><input type="radio" name="service" value="2" />
+ประกาศ 
+<br /></td>
+            <td width="19%" valign="middle" ><input type="radio" name="service" value="3" />
+ให้เช่า </td>
+            <td width="44%" valign="middle" ><input type="radio" name="service" value="4" />
+อื่น ๆ </td>
+          </tr>
+        </table></td>
+      </tr>
+      <tr class="text13b">
+        <td height="30" align="left" valign="middle">วิธีติดต่อ</td>
+        <td height="30" align="left" valign="middle">:</td>
+        <td colspan="3" align="left" valign="middle"> <table width="100%" border="0" cellspacing="0" cellpadding="1" class="linkaddform">
+                                  <tr> 
+                                    <td width="20%" ><input name="send" type="radio" value="1" checked>
+                                      ทางโทรศัพท์<br></td>
+                                    <td width="80%" > <input type="radio" name="send" value="2">
+                                    อีเมล์</td>
+                                  </tr>
+        </table></td>
+      </tr>
+      <tr class="text13b">
+        <td height="7" colspan="5" align="left" valign="middle"><hr size="1" /></td>
+      </tr>
+      <tr class="text13b">
+        <td height="40" align="left" valign="middle">รูปภาพตัวอย่าง</td>
+        <td height="40" align="left" valign="middle">:</td>
+        <td colspan="3" align="left" valign="middle"><input name="image" type="file" id="image">
+          <span class="style1">*</span> <span class="style2">โชว์หน้าหัวข้อประกาศ </span></td>
+      </tr>
+	  <tr class="text13b">
+	    <td height="40" align="left" valign="middle">ภาพประกอบ 1 </td>
+	    <td height="40" align="left" valign="middle">:</td>
+	    <td colspan="3" align="left" valign="middle"><input name="image1" type="file" id="image1" /></td>
+      </tr>
+	  <tr class="text13b">
+	    <td height="40" align="left" valign="middle">ภาพประกอบ 2</td>
+	    <td height="40" align="left" valign="middle">:</td>
+	    <td colspan="3" align="left" valign="middle"><input name="image2" type="file" id="image2" /></td>
+      </tr>
+	  <tr class="text13b">
+	    <td height="40" align="left" valign="middle">ภาพประกอบ 3</td>
+	    <td height="40" align="left" valign="middle">:</td>
+	    <td colspan="3" align="left" valign="middle"><input name="image3" type="file" id="image3" /></td>
+      </tr>
+	  <tr class="text13b">
+	    <td height="40" align="left" valign="middle">ภาพประกอบ 4</td>
+	    <td height="40" align="left" valign="middle">:</td>
+	    <td colspan="3" align="left" valign="middle"><input name="image4" type="file" id="image4" /></td>
+      </tr>
+	  <tr class="text13b">
+	    <td height="40" align="left" valign="middle">ภาพประกอบ 5</td>
+	    <td height="40" align="left" valign="middle">:</td>
+	    <td colspan="3" align="left" valign="middle"><input name="image5" type="file" id="image5" /></td>
+      </tr>
+	  <tr class="text13b">
+	    <td height="40" align="left" valign="middle">ภาพประกอบ 6</td>
+	    <td height="40" align="left" valign="middle">:</td>
+	    <td colspan="3" align="left" valign="middle"><input name="image6" type="file" id="image6" /></td>
+      </tr>
+	  
+	  <tr class="text13b">
+        <td height="40" colspan="2" align="left" valign="middle" bgcolor="#E5E5E5">คำค้นใน Google :</td>
+        <td colspan="3" align="left" valign="middle" bgcolor="#E5E5E5"><input name="keyword1" type="text" id="keyword1" style="width:100px;">
+          ,
+          <input name="keyword2" type="text" id="keyword2" style="width:100px;">
+          ,
+          <input name="keyword3" type="text" id="keyword3" style="width:100px;">
+          ,
+          <input name="keyword4" type="text" id="keyword4" style="width:100px;">
+          ,
+        <input name="keyword5" type="text" id="keyword5" style="width:100px;"></td>
+	  </tr>
+	  <tr class="text13b">
+        <td height="40" colspan="2" align="left" valign="middle" bgcolor="#E5E5E5">Tags:</td>
+        <td colspan="3" align="left" valign="middle" bgcolor="#E5E5E5"><input name="tags1" type="text" id="tags1" style="width:100px;">
+          ,
+          <input name="tags2" type="text" id="tags2" style="width:100px;">
+          ,
+        <input name="tags3" type="text" id="tags3" style="width:100px;"></td>
+	  </tr>
+      
+      <tr class="text13b">
+        <td height="50" colspan="5" align="center" valign="middle">
+		<input type="submit" name="Submit" value="ลงประกาศ" id="button">
+		<input type="hidden" name="id_member" value="<?=$_SESSION['id_member']?>">
+		<span id="Showdata"></span>		</td>
+      </tr>
+    </table>
+</form>
+<?
+}
+?>

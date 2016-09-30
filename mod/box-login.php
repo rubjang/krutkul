@@ -1,0 +1,2 @@
+<img src="../images/icon/icon_user.gif" width="16" height="16" align="texttop" /> ชื่อผู้ใช้งาน: <span class="comment"><b><?=$_SESSION['username']?></b></span>  
+<img src="../images/icon/icon_security.gif" width="16" height="16" align="absmiddle" /> <a href="../check-logout.php?Logout=yes" onClick="return confirm('ออกจากระบบจริงหรือไม่');" title="ออกจากระบบ">ออกจากระบบ</a> 

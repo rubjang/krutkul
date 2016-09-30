@@ -1,0 +1,266 @@
+<?
+ob_start();
+session_start();
+date_default_timezone_set('Asia/Bangkok');
+include('conf/connect.php');
+include('conf/title-web.php');
+include('Site-status.php');
+?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title><?=$title?></title>
+<meta name="description" content="" />
+<meta name="keywords" content="" />
+<link href="conf/template.css" rel="stylesheet" type="text/css" />
+<link href="conf/link.css" rel="stylesheet" type="text/css" />
+<link href="conf/textcss.css" rel="stylesheet" type="text/css" />
+<!--<script type="text/javascript" src="conf/java-noclick.js"></script> -->
+
+<script type="text/javascript" src="jquery-slider/js/jquery.js"></script>
+<script type="text/javascript" src="jquery-slider/js/easySlider1.5.js"></script>
+<link href="jquery-slider/css/screen4.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript">
+$(document).ready(function(){	
+	$("#slider").easySlider({
+		auto: true,
+		continuous: true
+	});
+});	
+</script>
+<style type="text/css">
+<!--
+body {
+	background-color: #FFFFFF;
+}
+-->
+</style></head>
+
+<body>
+<?
+include('conf/function.php');
+?>
+<div id="box-start">
+<!-- Top -->
+<div id="box-top">
+<div id="box-top-Left" class="link13">
+<?
+include('menu-top.php');
+?>
+</div>
+
+<div id="box-top-Right" class="link13">
+<?
+include('box-login.php');
+?>
+</div>
+</div>
+<!-- Top -->
+
+
+<!-- แบนเนอร์ Top -->
+<div id="box-bannertop">
+<?
+include('top.php');
+?>
+</div>
+<!-- จบแบนเนอร์ Top -->
+
+<!-- แสดงข้อมูล -->
+<div id="box-content1"></div>
+<div id="box-content2">
+
+<div id="box-content">
+<?
+include('search.php');
+?>
+</div>
+
+<div id="box-content">
+<div style="margin:10px 0px 0px 0px;">
+  <table width="980" border="0" cellpadding="0" cellspacing="0">
+    <tr>
+      <td width="210" align="left" valign="top">
+	  <?
+	  include('menu-left.php');
+	  ?>	  </td>
+      <td width="560" align="left" valign="top">
+	  <div style="width:550px; margin:0px auto;">
+	  <table width="550" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td align="center" valign="middle">
+	<table width="550" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td align="center" valign="middle">
+	<div id="container">
+	<div id="content">
+	<div id="slider">
+	<ul>
+	<?
+	$time_c1=date("Y-m-d H:i:s");
+	$qr_slide=mysql_query("select * from banner_slide Order By id_slide ASC");
+	while($re_slide=mysql_fetch_array($qr_slide)){
+	if($re_slide[image]!=""){
+	if($re_slide[endbanner]>=$time_c1){
+	$im_slide="images2/banner-c1/{$re_slide[image]}";
+	if(is_array(@file($im_slide))){
+	$type=@getimagesize($im_slide);
+	//gif
+	if($type[2]==1){
+	?>
+	<li><a href="<?=$re_slide[url]?>" title="<?=htmlspecialchars(stripslashes($re_slide[message]))?>" target="_blank"><img src="images2/banner-c1/<?=$re_slide[image]?>" alt="<?=htmlspecialchars(stripslashes($re_slide[message]))?>" width="545" height="250" border="0"></a></li>
+	<?
+	}
+	//jpg
+	elseif($type[2]==2){
+	?>
+	<li><a href="<?=$re_slide[url]?>" title="<?=htmlspecialchars(stripslashes($re_slide[message]))?>" target="_blank"><img src="images2/banner-c1/<?=$re_slide[image]?>" alt="<?=htmlspecialchars(stripslashes($re_slide[message]))?>" width="545" height="250" border="0"></a></li>
+	<?
+	}
+	//swf
+	else{
+	?>
+	<li><object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=7,0,19,0" width="545" height="250">
+      <param name="movie" value="images2/banner-c1/<?=$re_slide[image]?>" />
+      <param name="quality" value="high" />
+      <embed src="images2/banner-c1/<?=$re_slide[image]?>" quality="high" pluginspage="http://www.macromedia.com/go/getflashplayer" type="application/x-shockwave-flash" width="545" height="250"></embed>
+	</object></li>
+	<?
+	}
+	}else{
+	?>
+	<li><img src="images2/banner-c1/noimage.jpg" width="545" height="250"></li>
+	<?
+	}
+	
+	}else{
+	?>  
+	<li><img src="images2/banner-c1/noimage.jpg" width="545" height="250"></li>	
+	<?
+	}
+	}else{
+	?>
+	<li><img src="images2/banner-c1/noimage.jpg" width="545" height="250"></li>	
+	<?
+	}
+	}
+	?>	
+	</ul>
+	</div>
+	</div>
+	</div>
+	</td>
+  </tr>
+</table>
+	</td>
+  </tr>
+</table>
+
+
+<div style="margin:10px auto;">
+  <table width="550" border="0" cellpadding="0" cellspacing="0">
+    <tr>
+      <td align="center" valign="middle">
+	  <?
+	  $time_c2=date("Y-m-d H:i:s");
+	  $qr_c2=mysql_query("select * from banner_c2 Order By id_c2 ASC");
+	  while($re_c2=mysql_fetch_array($qr_c2)){
+	  if($re_c2[image]!=""){
+	  if($re_c2[endbanner]>=$time_c2){
+	  $im_c2="images2/banner-c2/{$re_c2[image]}";
+	  if(is_array(@file($im_c2))){
+	  $type=@getimagesize($im_c2);
+	  //gif
+	  if($type[2]==1){
+	  ?>
+	  <span id="box-image"><a href="<?=$re_c2[url]?>" target="_blank" title="<?=htmlspecialchars(stripslashes($re_c2[message]))?>"><img src="images2/banner-c2/<?=$re_c2[image]?>" width="120" height="120" border="0" id="border-image"></a></span>
+	  <?
+	  }
+	  //jpg
+	  elseif($type[2]==2){
+	  ?>
+	  <span id="box-image"><a href="<?=$re_c2[url]?>" target="_blank" title="<?=htmlspecialchars(stripslashes($re_c2[message]))?>"><img src="images2/banner-c2/<?=$re_c2[image]?>" width="120" height="120" border="0" id="border-image"></a></span>
+	  <?
+	  }
+	  //swf
+	  else{
+	  ?>
+	  <object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=7,0,19,0" width="120" height="120">
+	  <param name="movie" value="images2/banner-c2/<?=$re_c2[image]?>" />
+	  <param name="quality" value="high" />
+	  <embed src="images2/banner-c2/<?=$re_c2[image]?>" quality="high" pluginspage="http://www.macromedia.com/go/getflashplayer" type="application/x-shockwave-flash" width="120" height="120"></embed>
+	  </object>
+	  <?
+	  }
+	  
+	  }else{
+	  ?>
+	  <span id="box-image"><img src="images2/banner-c2/onimage.gif" width="120" height="120" id="border-image"></span>
+	  <?
+	  }
+	  
+	  }else{
+	  ?>
+	  <span id="box-image"><img src="images2/banner-c2/onimage.gif" width="120" height="120" id="border-image"></span>
+	  <?
+	  }
+	  }else{
+	  ?>
+	  <span id="box-image"><img src="images2/banner-c2/onimage.gif" width="120" height="120" id="border-image"></span>
+	  <?
+	  }
+	  } //while
+	  ?>	  </td>
+    </tr>
+  </table>
+</div>
+
+<div style="margin:10px auto;">
+<?
+if($_REQUEST[Register]=="Member"){
+include('register.php');
+}
+elseif($_REQUEST[Login]=="Member"){
+include('form-login.php');
+}
+elseif($_REQUEST[Category]=="ShopCategory"){
+include('category.php');
+}
+elseif($_REQUEST[Cate]=="Art"){
+include('category-Article.php');
+}
+?>
+</div>
+	  </div>
+	  </td>
+      <td width="210" align="left" valign="top">
+	  <?
+	  include('menu-right.php');
+	  ?>
+	  </td>
+    </tr>
+  </table>
+</div>
+</div>
+
+</div>
+<div id="box-content3"></div>
+<!-- แสดงข้อมูล -->
+
+<!-- footer -->
+<div id="box-content1"></div>
+<div id="box-content2">
+
+<div id="box-content">
+<?
+include('footer.php');
+?>
+</div>
+
+</div>
+<div id="box-content3"></div>
+<!-- footer -->
+</div>
+</body>
+</html>

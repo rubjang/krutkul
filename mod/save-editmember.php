@@ -1,0 +1,26 @@
+<?
+ob_start();
+session_start();
+header('Content-type: text/html; charset=utf-8');
+include('../conf/connect.php');
+date_default_timezone_set('Asia/Bangkok');
+sleep(1);
+$id_member=(int)$_REQUEST[id_member];
+if($id_member==""){
+echo"<script>window.parent.SentEr();</script>";
+exit();
+}
+if(($_REQUEST[email]=="") || ($_REQUEST[name]=="")|| ($_REQUEST[address]=="") || ($_REQUEST[tel]=="") || ($_REQUEST[province]=="")|| ($_REQUEST[amper]=="")|| ($_REQUEST[tumbon]=="") ){
+echo"<script>alert('ป้อนข้อมูลให้ครบทุกช่อง *');window.parent.SentEr();</script>";
+exit();
+}
+
+$Up=mysql_query("Update member set email='".trim($_REQUEST[email])."',name='".trim($_REQUEST[name])."',address='".trim($_REQUEST[address])."',tel='".trim($_REQUEST[tel])."',province='".trim($_REQUEST[province])."',amper='".trim($_REQUEST[amper])."',tumbon='".trim($_REQUEST[tumbon])."',web='".trim($_REQUEST[web])."' where id_member='$id_member'");
+if($Up){
+echo"<script>alert('ดำเนินการเรียบร้อย');window.parent.SentOK();</script>";
+exit();
+}else{
+echo"<script>alert('ไม่สามารถดำเนินการได้');window.parent.SentEr();</script>";
+exit();
+}
+?>
