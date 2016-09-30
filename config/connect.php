@@ -1,10 +1,10 @@
 <?php
 /* server */
 
-$ServerName="localhost";
-$UserServer="krutkul_db";
-$PassServer="go9io4kgo9ifuphiphat";
-$DataBase="krutkul_user";
+$ServerName="mysql";
+$UserServer="root";
+$PassServer="1q2w3e4r";
+$DataBase="krutkul";
 
 /* localhost */
 /*
