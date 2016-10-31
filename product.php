@@ -1,10 +1,7 @@
 <!DOCTYPE html>
 <html lang="th">
   <!-- Top Head -->
-  <?php
-echo "test";
-die();
-  @include('incs/header-top.php');
+  <?php @include('incs/header-top.php');
   $limit_product  = "36";
   ?>
   <!-- /Top Head -->
