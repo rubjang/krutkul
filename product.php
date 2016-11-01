@@ -26,9 +26,7 @@ session_start();
         <div class="box-wh">
            <div class="container sec-indust">
            		<h2 class="h-sec">ผลงาน และ การให้บริการ<span class="dl">
-                 <?php if($_SESSION['user_shop'] =="admin"){?>
-                 <a href="add-product.php" title="เพิ่มผลงาน" style="color:red;"> <i class="fa-download"> </i> เพิ่มผลงาน</a>
-                 <? } ?>
+        
                </h2>
                  <ul class="row thm-top _cd-col-xs-4-sm-3-md-2 txt-c">
  		                  <?php @include("product-list.php"); ?>
