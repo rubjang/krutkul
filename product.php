@@ -1,3 +1,7 @@
+<?php
+ob_start();
+session_start();
+ ?>?>
 <!DOCTYPE html>
 <html lang="th">
   <!-- Top Head -->
@@ -27,7 +31,7 @@
                  <? } ?>
                </h2>
                  <ul class="row thm-top _cd-col-xs-4-sm-3-md-2 txt-c">
- 		                  <?//php @include("product-list.php"); ?>
+ 		                  <?php @include("product-list.php"); ?>
                  </ul>
            </div>
         </div>
