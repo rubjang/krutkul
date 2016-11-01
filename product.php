@@ -5,7 +5,7 @@ session_start();
 <!DOCTYPE html>
 <html lang="th">
   <!-- Top Head -->
-  <?php @include('incs/header-top.php');
+  <?php include('incs/header-top.php');
   $limit_product  = "36";
   ?>
   <!-- /Top Head -->
@@ -18,7 +18,7 @@ session_start();
   </script>
   <body>
       <!-- Header -->
-	  <?php include('incs/header.php'); ?>
+	  <?php @include('incs/header.php'); ?>
       <!-- /Header -->
       <div class="page bg-web f-top">
 
