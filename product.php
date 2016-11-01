@@ -1,11 +1,11 @@
 <?php
 ob_start();
 session_start();
- ?>?>
+ ?>
 <!DOCTYPE html>
 <html lang="th">
   <!-- Top Head -->
-  <?php include('incs/header-top.php');
+  <?php @include('incs/header-top.php');
   $limit_product  = "36";
   ?>
   <!-- /Top Head -->
