@@ -18,7 +18,7 @@ session_start();
   </script>
   <body>
       <!-- Header -->
-	  <?php @include('incs/header.php'); ?>
+	  <?php include('incs/header.php'); ?>
       <!-- /Header -->
       <div class="page bg-web f-top">
 
@@ -26,7 +26,7 @@ session_start();
         <div class="box-wh">
            <div class="container sec-indust">
            		<h2 class="h-sec">ผลงาน และ การให้บริการ<span class="dl">
-        
+
                </h2>
                  <ul class="row thm-top _cd-col-xs-4-sm-3-md-2 txt-c">
  		                  <?php @include("product-list.php"); ?>
