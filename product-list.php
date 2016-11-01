@@ -1,4 +1,5 @@
 <?php
+include('config/connect.php');
 $strSQL = "SELECT * FROM shop_product ";
 
 $objQuery = mysql_query($strSQL) or die ("Error Query");
