@@ -1,8 +1,8 @@
 <?php
-$ServerName="mysql";
+$ServerName="localhost";
 $UserServer="root";
-$PassServer="1q2w3e4r";
-$DataBase="krutkul_db";
+$PassServer="";
+$DataBase="";
 // database
 
 
