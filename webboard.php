@@ -1,9 +1,7 @@
 <!DOCTYPE html>
 <html lang="th">
   <!-- Top Head -->
-  <?php @include('incs/header-top.php');
-$limit_product  = "18";
-  ?>
+
   <!-- /Top Head -->
   <script>
    $(document).ready(function(){
@@ -13,7 +11,7 @@ $limit_product  = "18";
 
   </script>
   <body>
-
+sdfsdfd
 
   </body>
 </html>
