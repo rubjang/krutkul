@@ -13,6 +13,16 @@
 
   </script>
   <body>
-  
+      <!-- Header -->
+	  <?php @include('incs/header.php'); ?>
+      <!-- /Header -->
+      <div class="page bg-web f-top">
+
+
+	</div>
+    <!-- /page -->
+	<!-- javascript -->
+	<?php @include('incs/js.php'); ?>
+    <!-- /javascript -->
   </body>
 </html>
