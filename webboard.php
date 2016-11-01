@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html lang="th">
   <!-- Top Head -->
-  <?php @include('incs/header-top.php');
+  <?php
+  @include('config/connect.php');
+  @include('incs/header-top.php');
   //include('config/connect.php');
     $strSQL = "SELECT * FROM shop_webboard ";
 

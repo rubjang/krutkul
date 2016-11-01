@@ -2,8 +2,13 @@
 include('config/connect.php');
 $strSQL = "SELECT * FROM shop_product ";
 
+
+
 $objQuery = mysql_query($strSQL) or die ("Error Query");
 $Num_Rows = mysql_num_rows($objQuery);
+
+var_dump($Num_Rows);
+die();
 
 $Per_Page = $limit_product;   // Per Page
 
