@@ -7,9 +7,7 @@
 
     $objQuery = mysql_query($strSQL) or die ("Error Query");
     $Num_Rows = mysql_num_rows($objQuery);
-
     $Per_Page = 10;   // Per Page
-
     $Page = $_GET['Page'];
     if(!$_GET['Page'])
     {
