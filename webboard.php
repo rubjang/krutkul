@@ -86,7 +86,7 @@ return true;
                                 	<span class="by-name">
                                   <?php if($_SESSION['user_shop']=="admin"){?>
                                     <a href="javascript:Del(<?=$row[id_webboard]?>)" onClick="return confirm('ต้องการลบจริงหรือไม่');"><img src="image/icon/delete.png" width="24" height="24" border="0" align="absbottom"> ลบกระทู้นี้</a>
-                                    <? } ?><div id="ShowDel"></div>
+                                    <?php } ?><div id="ShowDel"></div>
                                   </span>
                                     <small><i class="fa-user"></i> <?php echo $row['name'];?> ,  เมื่อ <?php $today=explode("-",$row['today']); echo $today['2']."-".$today['1']."-".$today['0']; ?></small>
                                 	<span><i class="fa-comments-o"></i> <?=mysql_num_rows(mysql_query("select id_webboard from shop_webboard_reply where id_webboard='$row[id_webboard]'"));?></span>
@@ -94,7 +94,7 @@ return true;
                                 </div>
 
                             </li>
-                            <? } ?>
+                            <?php } ?>
                         </ul>
                           <div class="pagination">
                             <ul>
